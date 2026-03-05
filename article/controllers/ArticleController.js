@@ -1,4 +1,5 @@
 // Contrelleur Articles
+// Les données passent par le controller, qui les envoient à l'utilisateur
 const {getAllArticles, getArticleById, getArticleByCategory} = require("../models/ArticleModel");
 
 // Récupérer tous les articles
@@ -35,6 +36,7 @@ const getById = async (req, res) => {
             });
         }
 
+        // Sinon, on renvoie le premier élément du tableau (l'article)
         res.json({
             message: "Article récupéré avec succès",
             article: articles[0]
@@ -50,7 +52,9 @@ const getById = async (req, res) => {
 // Récupérer les produits par catégorie
 const getByCategory = async (req, res) => {
     try {
+        // On récupère 'categorie' car dans le routeur, j'ai mis "/categorie/:categorie"
         const { categorie } = req.params;
+        // On passe cette variable au Modèle
         const articles = await getArticleByCategory(categorie);
 
         res.json({

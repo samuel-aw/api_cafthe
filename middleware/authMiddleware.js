@@ -1,4 +1,4 @@
-// Middleware d'authentification JWT
+// Middleware d'authentification JWT, c'est pour bloquer les routes qu'on ne veut pas montrer (sécu)
 // Vérifie que le token JWT est valide pour protéger les routes
 
 const jwt = require("jsonwebtoken");

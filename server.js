@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
+const cookieParser = require("cookie-parser");
 
 // Permet de charger les variables d'environnement depuis .env
 require("dotenv").config();
@@ -32,8 +33,12 @@ app.use(
     cors({
     origin: process.env.FRONTEND_URL || "http://localhost:5173",
     methods: ["GET", "POST", "PUT", "DELETE"],
+    credentials: true
     }),
 );
+
+// Parse les cookies dans req
+app.use(cookieParser());
 
 // ROUTES
 

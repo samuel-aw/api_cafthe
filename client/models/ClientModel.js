@@ -2,7 +2,17 @@
 
 const db = require("../../db");
 const bcrypt = require("bcryptjs");
-const {hash} = require("bcryptjs");
+// Pas besoin de hash car inutilisé
+//const {hash} = require("bcryptjs");
+
+// Rechercher un client par son ID
+const findClientById = async (id) => {
+    const [rows] = await db.query(
+        "SELECT * FROM clients WHERE ID_Client = ?",
+        [id],
+    );
+    return rows;
+}
 
 // Rechercher un client par email
 const findClientByEmail = async(email) => {
@@ -15,6 +25,7 @@ const findClientByEmail = async(email) => {
 
 // Créer un nouveau client
 const createClient = async (clientData) => {
+    // On extrait les données
     const {
         nom,
         prenom,
@@ -29,6 +40,8 @@ const createClient = async (clientData) => {
         telephone
     } = clientData;
 
+    // Colonnes : nom_client, prenom_client, email_client, mdp_client... (selon SQL initial)
+    // Aligner le nombre de points d'interrogation (?) avec le nombre de colonnes
     const [result] = await db.query(
         `INSERT INTO clients 
         (nom_client, prenom_client, email_client, mdp_client,
@@ -65,4 +78,4 @@ const comparePassword = async (password, hash) => {
 };
 
 
-module.exports = { findClientByEmail, createClient, hashPassword, comparePassword };
+module.exports = { findClientByEmail, createClient, hashPassword, comparePassword, findClientById };
