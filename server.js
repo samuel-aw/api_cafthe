@@ -1,3 +1,5 @@
+// NOUVEAUTÉ : ajout de la route /api/orders
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
@@ -12,6 +14,7 @@ const db = require("./db");
 // ==== Importation des routes ====
 const articleRoutes = require("./article/routes/ArticleRouter");
 const clientRoutes = require("./client/routes/ClientRouter");
+const orderRoutes = require('./order/routes/OrderRouter');
 // Création de l'application Express
 const app = express();
 
@@ -33,8 +36,9 @@ app.use(
     cors({
         origin: process.env.FRONTEND_URL || "http://localhost:5173",
         methods: ["GET", "POST", "PUT", "DELETE"],
+        allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
-    }),
+    })
 );
 
 // Parse les cookies dans req
@@ -53,6 +57,7 @@ app.get("/health", (req, res) => {
 // Routes de l'API
 app.use("/api/articles", articleRoutes);
 app.use("/api/clients", clientRoutes);
+app.use('/api/orders', orderRoutes);
 
 // GESTIONS DES ERREURS
 // Routes 404
