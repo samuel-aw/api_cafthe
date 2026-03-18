@@ -1,4 +1,4 @@
-// NOUVEAUTÉ : ajout de la route /api/orders
+// ajout de la route /api/orders
 
 const express = require("express");
 const cors = require("cors");

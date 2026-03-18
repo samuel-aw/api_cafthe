@@ -44,7 +44,7 @@ const createCommandeComplete = async (ID_Client, montant, articles) => {
         // --- 1. Créer la commande ---
         // date_commande et date_paiement = aujourd'hui
         // statut_commande = "En cours" par défaut
-        // mode_commande = "Web" (c'est un e-commerce)
+        // mode_commande = "Web" (c'est un site e-commerce)
         const [resultCommande] = await connection.query(
             `INSERT INTO commandes
             (date_commande, mode_commande, statut_commande, 

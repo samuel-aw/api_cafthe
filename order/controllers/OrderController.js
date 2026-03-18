@@ -5,9 +5,9 @@
 // appelle le Model, et renvoie la réponse JSON.
 //
 // ROUTES GÉRÉES :
-//   POST /api/orders          → créer une commande (protégée)
-//   GET  /api/orders          → mes commandes (protégée)
-//   GET  /api/orders/:id      → détail d'une commande (protégée)
+//   POST /api/orders → créer une commande (protégée)
+//   GET  /api/orders → mes commandes (protégée)
+//   GET  /api/orders/:id → détail d'une commande (protégée)
 //
 // ============================================================
 
@@ -34,7 +34,7 @@ const createOrder = async (req, res) => {
         const { articles, montant_total } = req.body;
 
         // --- Validation des données ---
-        // req.client.id vient du middleware werifyToken (JWT décodé)
+        // req.client.id vient du middleware verifyToken (JWT décodé)
         if(!articles || !Array.isArray(articles) || articles.length === 0) {
             return res.status(400).json({
                 message: 'Le panier est vide ou invalide',
@@ -67,8 +67,8 @@ const createOrder = async (req, res) => {
         res.status(201).json({
             message: 'Commande créée avec succès',
             ID_Commande,
-            // Numéro de commande lisible (format CMD-XXXXX)
-            numero_commande: `CMD-${ID_Commande}`,
+            // Numéro de commande lisible (format COMMANDE-XXXXX)
+            numero_commande: `COMMANDE-${ID_Commande}`,
         });
     } catch (error) {
         console.error('Erreur création commande :', error.message);
@@ -114,7 +114,7 @@ const getOrderById = async (req, res) => {
         }
 
         // On passe aussi req.client.id pour s'assurer que la commande
-        // appartient bien au client connecté (sécurité importante !)
+        // appartient bien au client connecté (sécurité importante)
         const commande = await getCommandeById(ID_Commande, req.client.id);
 
         if (!commande) {

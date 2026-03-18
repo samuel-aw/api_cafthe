@@ -4,11 +4,11 @@
 // Seul un client connecté peut créer ou consulter ses commandes.
 //
 // ROUTES :
-//   POST /api/orders     → créer une commande
-//   GET  /api/orders     → mes commandes
+//   POST /api/orders → créer une commande
+//   GET  /api/orders → mes commandes
 //   GET  /api/orders/:id → détail d'une commande
 //
-// CORRECTION de ton fichier original :
+// CORRECTION IMPORTANTE (bug) :
 //   router.post("/orders", ...) → router.post("/", ...)
 //   (sinon la route devenait /api/orders/orders)
 //
