@@ -16,6 +16,7 @@ const {
     getCommandesByClient,
     getCommandeById,
 } = require('../models/OrderModel');
+const { updateAdresseLivraison } = require('../../client/models/ClientModel');
 
 // ─────────────────────────────────────────────────────────
 // CRÉER UNE COMMANDE
@@ -31,7 +32,7 @@ const {
 // ─────────────────────────────────────────────────────────
 const createOrder = async (req, res) => {
     try {
-        const { articles, montant_total } = req.body;
+        const { articles, montant_total, livraison } = req.body;
 
         // --- Validation des données ---
         // req.client.id vient du middleware verifyToken (JWT décodé)
@@ -63,6 +64,11 @@ const createOrder = async (req, res) => {
             montant_total,
             articles
         );
+
+        // Sauvegarder l'adresse fournie par le client
+        if (livraison) {
+            await updateAdresseLivraison(req.client.id, livraison);
+        }
 
         res.status(201).json({
             message: 'Commande créée avec succès',

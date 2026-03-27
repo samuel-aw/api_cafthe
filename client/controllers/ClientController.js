@@ -61,7 +61,7 @@ const login = async (req, res) => {
         const client = clients[0];
 
         // Vérifier le mot de passe
-        const isMatch = await comparePassword(mot_de_passe, client.mot_de_passe);
+        const isMatch = await comparePassword(mot_de_passe, client.mdp_client);
 
         if (!isMatch){
             return res.status(401).json({
@@ -128,7 +128,12 @@ const getMe = async (req, res) => {
                 id: client.ID_Client,
                 nom: client.nom_client,
                 prenom: client.prenom_client,
-                email: client.email_client
+                email: client.email_client,
+                // Ajouté pour pouvoir enregistré l'adresse de livraison du client après validation de la commande
+                adresse_livraison: client.adresse_livraison,
+                cp_livraison: client.cp_livraison,
+                ville_livraison: client.ville_livraison,
+                telephone: client.telephone_client,
             }
         });
     } catch (error) {

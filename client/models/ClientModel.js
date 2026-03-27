@@ -65,6 +65,26 @@ const createClient = async (clientData) => {
     return result;
 };
 
+// Mettre à jour l'adresse de livraison du client
+const updateAdresseLivraison = async (ID_Client, adresse) => {
+    const [result] = await db.query(
+        `UPDATE clients SET
+                   adresse_livraison = ?,
+                   cp_livraison = ?,
+                   ville_livraison = ?,
+                   telephone_client = ?
+        WHERE ID_Client = ?`,
+        [
+            adresse.adresse,
+            adresse.cp,
+            adresse.ville,
+            adresse.telephone || null,
+            ID_Client,
+        ]
+    );
+    return result;
+};
+
 // Hacher un mot de passe
 const hashPassword = async (password) => {
     const rounds = parseInt(process.env.BCRYPT_ROUNDS) || 10;
@@ -78,4 +98,4 @@ const comparePassword = async (password, hash) => {
 };
 
 
-module.exports = { findClientByEmail, createClient, hashPassword, comparePassword, findClientById };
+module.exports = { findClientByEmail, createClient, hashPassword, comparePassword, findClientById, updateAdresseLivraison };

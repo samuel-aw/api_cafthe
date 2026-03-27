@@ -1,12 +1,12 @@
 // ajout de la route /api/orders
 
+// Permet de charger les variables d'environnement depuis .env
+require("dotenv").config();
+
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const cookieParser = require("cookie-parser");
-
-// Permet de charger les variables d'environnement depuis .env
-require("dotenv").config();
 
 // Connexion à la bdd (base de données)
 const db = require("./db");
@@ -34,7 +34,7 @@ app.use(express.static("public"));
 
 app.use(
     cors({
-        origin: process.env.FRONTEND_URL || "http://localhost:5173",
+        origin: process.env.FRONTEND_URL || "http://localhost:5173", //"https://boutiquecafthe.sawodun.dev-campus.fr",
         methods: ["GET", "POST", "PUT", "DELETE"],
         allowedHeaders: ['Content-Type', 'Authorization'],
         credentials: true
